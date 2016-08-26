@@ -4,7 +4,11 @@
 003000 INSTALLATION.                   NEW YORK TIMES.
 003100 DATE-WRITTEN.                   MARCH 25, 2015.
 003200 DATE-COMPILED.
-003300
+      ***********************************************************
+037000*** CHANGE LOG:        VERSION# 7.0-XX                    *        
+003800***    DATE     - XX - # - SHORT DESCRIPTION              *        
+013400***    08/24/16 - AL-01    add new print ctl value        *
+      ***********************************************************
 003400 ENVIRONMENT DIVISION.
 003500 CONFIGURATION SECTION.
 003600 SOURCE-COMPUTER.                AMZMCMPS.
@@ -182,6 +186,7 @@ NYTMSB 01  WK-XRF-ACCT-NBR          PIC 9(09).                           NYTMSB
            IF STATUS-CODE NOT = 0
                 DISPLAY 'SEL-AGY-ACCT-NBR = ' SEL-AGY-ACCT-NBR
                 DISPLAY 'SEL-ACCT-NBR =  ' SEL-ACCT-NBR
+                
                 DISPLAY 'NAD-ACCT-NBR =  ' NAD-ACCT-NBR
                 DISPLAY 'NOT FOUND IN NAD FILE'
                 MOVE 0 TO STATUS-CODE
@@ -193,7 +198,8 @@ NYTMSB 01  WK-XRF-ACCT-NBR          PIC 9(09).                           NYTMSB
            AND NAD-EMAIL-3 = SPACES
            AND NAD-EMAIL-4 = SPACES
            AND NAD-EMAIL-5 = SPACES)
-             or nad-route(1:1) not = 'E'
+             or (nad-route(1:1) not = 'E' or
+                 NAD-PRINT-CTL not = 'E')
               GO TO PROCESS-INPUT-REC-EXIT
            END-IF.
    
